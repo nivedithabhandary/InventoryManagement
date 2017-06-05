@@ -110,6 +110,16 @@ public class DBUtils {
 	      pstm.executeUpdate();
 	  }
 	 
+	  public static void checkoutProduct(Connection conn, Product product) throws SQLException {
+	      String sql = "Update inventory set quantity =? where id=? ";
+	 
+	      PreparedStatement pstm = conn.prepareStatement(sql);
+
+	      pstm.setInt(1, product.getQuantity()-1);
+	      pstm.setInt(2, product.getId());
+	      pstm.executeUpdate();
+	  }
+	  
 	  public static void insertProduct(Connection conn, Product product) throws SQLException {
 	      String sql = "Insert into inventory(id, name, quantity, price) values (?,?,?,?)";
 	 

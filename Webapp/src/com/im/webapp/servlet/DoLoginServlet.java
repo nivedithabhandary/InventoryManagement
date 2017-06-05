@@ -1,6 +1,7 @@
 package com.im.webapp.servlet;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -26,7 +27,6 @@ public class DoLoginServlet extends HttpServlet {
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Inside Do Login!!");
     	String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         
@@ -43,7 +43,6 @@ public class DoLoginServlet extends HttpServlet {
            try {
              
                user = DBUtils.findUser(conn, userName, password);
-               System.out.println("After find user DB connection OK!!");
                 
                if (user == null) {
                    hasError = true;
@@ -56,39 +55,31 @@ public class DoLoginServlet extends HttpServlet {
            }
        }
         
-        // If error, forward to /WEB-INF/views/login.jsp
         if (hasError) {
             user = new UserAccount();
             user.setUserName(userName);
             user.setPassword(password);
              
-            // Store information in request attribute, before forward.
             request.setAttribute("errorString", errorString);
             request.setAttribute("user", user);
        
-            // Forward to /WEB-INF/views/login.jsp
-            RequestDispatcher dispatcher //
-            = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
  
             dispatcher.forward(request, response);
         }
-     
-        // If no error
-        // Store user information in Session
-        // And redirect to userInfo page.
+
         else {
         	
             HttpSession session = request.getSession();
-            UserUtils.storeLoginedUser(session, user);                     
+            UserUtils.storeLoginedUser(session, user); 
             
-            response.sendRedirect(request.getContextPath() + "/adminDashboard");
-            /*
-            if (user.getUserName() == "admin") {
+            System.out.println(user.getUserName());
+
+            if (userName == "admin") {
             	response.sendRedirect(request.getContextPath() + "/adminDashboard");
             } else {
             	response.sendRedirect(request.getContextPath() + "/userDashboard");
-            }*/
-            
+            }
         }
 	}
     

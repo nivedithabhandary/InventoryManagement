@@ -9,7 +9,7 @@ public class MySQLConnectionUtil {
 	public static Connection getMySQLConnection()
 	        throws ClassNotFoundException, SQLException {
 		
-	    String hostName = "";
+	    String hostName = "localhost";
 	    String dbName = "InventoryDB";
 	    String userName = "root";
 	    String password = "password";

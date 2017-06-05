@@ -6,7 +6,7 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
  </head>
  <body>
  
@@ -20,9 +20,7 @@
           <th>Product Name</th>
           <th>Product Quantity</th>
           <th>Price</th>
-          <th>Edit</th>
           <th>Checkout</th>
-          <th>Delete</th>
        </tr>
        <c:forEach items="${productList}" var="product" >
           <tr>
@@ -31,22 +29,12 @@
              <td>${product.quantity}</td>
              <td>${product.price}</td>
              <td>
-                <a href="modifyProduct?id=${product.id}">Modify</a>
-             </td>
-             <td>
                 <a href="checkoutProduct?id=${product.id}">Checkout</a>
              </td>
-             <td>
-                <a href="deleteProduct?id=${product.id}">Delete</a>
-             </td>
-             
           </tr>
        </c:forEach>
     </table>
- 
-    <a href="addProduct" >Add Product</a>
     <br>
     <a href="logout">Logout</a>
- 
  </body>
 </html>
