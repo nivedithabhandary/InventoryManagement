@@ -22,4 +22,4 @@
 ### REFERENCE:
 * http://o7planning.org/en/10169/java-servlet-tutorial
 * http://o7planning.org/en/10395/java-servlet-filter-tutorial
-* http://o7planning.org/en/10263/java-jsp-tutorial
+* http://o7planning.org/en/10285/create-a-simple-java-web-application-using-servlet-jsp-and-jdbc#a812029
