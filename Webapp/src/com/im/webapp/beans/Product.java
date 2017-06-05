@@ -1,0 +1,53 @@
+package com.im.webapp.beans;
+
+public class Product {
+ 
+   private int id;
+   private String productName;
+   private int productQuantity;
+   private float price;
+ 
+   public Product() {
+ 
+   }
+ 
+   public Product(int id, String productName, int productQuantity, float price) {
+       this.id = id;
+       this.productName = productName;
+       this.productQuantity = productQuantity;
+       this.price = price;
+   }
+ 
+   public int getID() {
+       return id;
+   }
+ 
+   public void setID(int id) {
+       this.id = id;
+   }
+ 
+   public String getProductName() {
+       return productName;
+   }
+ 
+   public void setProductName(String productName) {
+       this.productName = productName;
+   }
+ 
+   public int getProductQuantity() {
+       return productQuantity;
+   }
+ 
+   public void setProductQuantity(int productQuantity) {
+       this.productQuantity = productQuantity;
+   }
+   
+   public float getPrice() {
+       return price;
+   }
+ 
+   public void setPrice(float price) {
+       this.price = price;
+   }
+ 
+}
