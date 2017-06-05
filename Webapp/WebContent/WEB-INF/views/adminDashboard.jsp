@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
  pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 
 <!DOCTYPE html>
 <html>
@@ -20,26 +21,30 @@
           <th>Product Quantity</th>
           <th>Price</th>
           <th>Edit</th>
-          <th>Delete</th>
           <th>Checkout</th>
+          <th>Delete</th>
        </tr>
        <c:forEach items="${productList}" var="product" >
           <tr>
              <td>${product.id}</td>
-             <td>${product.product_name}</td>
-             <td>${product.product_quantity}</td>
+             <td>${product.name}</td>
+             <td>${product.quantity}</td>
              <td>${product.price}</td>
              <td>
-                <a href="editProduct?code=${product.id}">Edit</a>
+                <a href="modifyProduct?id=${product.id}">Modify</a>
              </td>
              <td>
-                <a href="deleteProduct?code=${product.id}">Delete</a>
+                <a href="checkoutProduct?id=${product.id}">Checkout</a>
              </td>
+             <td>
+                <a href="deleteProduct?id=${product.id}">Delete</a>
+             </td>
+             
           </tr>
        </c:forEach>
     </table>
  
-    <a href="createProduct" >Create Product</a>
+    <a href="addProduct" >Add Product</a>
  
  </body>
 </html>

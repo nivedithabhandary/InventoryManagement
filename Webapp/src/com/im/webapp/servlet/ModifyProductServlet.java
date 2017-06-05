@@ -1,9 +1,7 @@
 package com.im.webapp.servlet;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,39 +14,53 @@ import com.im.webapp.beans.Product;
 import com.im.webapp.utils.DBUtils;
 import com.im.webapp.utils.UserUtils;
 
-@WebServlet(urlPatterns = { "/adminDashboard" })
-public class AdminDashboardServlet extends HttpServlet {
+@WebServlet("/modifyProduct")
+public class ModifyProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public AdminDashboardServlet() {
+    public ModifyProductServlet() {
         super();
     }
-    
+
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = UserUtils.getStoredConnection(request);
         
+        String idStr = (String) request.getParameter("id");
+ 
+        Product product = null;
+ 
         String errorString = null;
-        List<Product> list = null;
+        
+        int id = 0;
         try {
-            list = DBUtils.queryInventory(conn);
+            id = Integer.parseInt(idStr);
+        } catch (Exception e) {
+        }
+       
+        try {
+            product = DBUtils.findProduct(conn, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-   
-        // Store info in request attribute, before forward to views
+
+        if (errorString != null && product == null) {
+            response.sendRedirect(request.getServletPath() + "/adminDashboard");
+            return;
+        }
+ 
         request.setAttribute("errorString", errorString);
-        request.setAttribute("productList", list);
-         
+        request.setAttribute("product", product);
+ 
         RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/adminDashboard.jsp");
+                .getRequestDispatcher("/WEB-INF/views/modifyProductView.jsp");
         dispatcher.forward(request, response);
 	}
 
-    @Override
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+        doGet(request, response);
 	}
 
 }

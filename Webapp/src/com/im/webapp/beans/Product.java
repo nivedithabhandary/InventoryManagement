@@ -3,43 +3,43 @@ package com.im.webapp.beans;
 public class Product {
  
    private int id;
-   private String productName;
-   private int productQuantity;
+   private String name;
+   private int quantity;
    private float price;
  
    public Product() {
  
    }
  
-   public Product(int id, String productName, int productQuantity, float price) {
+   public Product(int id, String name, int quantity, float price) {
        this.id = id;
-       this.productName = productName;
-       this.productQuantity = productQuantity;
+       this.name = name;
+       this.quantity = quantity;
        this.price = price;
    }
  
-   public int getID() {
+   public int getId() {
        return id;
    }
  
-   public void setID(int id) {
+   public void setId(int id) {
        this.id = id;
    }
  
-   public String getProductName() {
-       return productName;
+   public String getName() {
+       return name;
    }
  
-   public void setProductName(String productName) {
-       this.productName = productName;
+   public void setName(String name) {
+       this.name = name;
    }
  
-   public int getProductQuantity() {
-       return productQuantity;
+   public int getQuantity() {
+       return quantity;
    }
  
-   public void setProductQuantity(int productQuantity) {
-       this.productQuantity = productQuantity;
+   public void setQuantity(int quantity) {
+       this.quantity = quantity;
    }
    
    public float getPrice() {

@@ -81,11 +81,13 @@ public class DoLoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             UserUtils.storeLoginedUser(session, user);                     
             
+            response.sendRedirect(request.getContextPath() + "/adminDashboard");
+            /*
             if (user.getUserName() == "admin") {
             	response.sendRedirect(request.getContextPath() + "/adminDashboard");
             } else {
             	response.sendRedirect(request.getContextPath() + "/userDashboard");
-            }
+            }*/
             
         }
 	}

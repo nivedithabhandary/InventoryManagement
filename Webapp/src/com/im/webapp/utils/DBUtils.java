@@ -59,7 +59,7 @@ public class DBUtils {
 	  }
 	  
 	  public static List<Product> queryInventory(Connection conn) throws SQLException {
-	      String sql = "Select a.id, a.product_name, a.product_quantity, a.price from inventory a ";
+	      String sql = "Select a.id, a.name, a.quantity, a.price from inventory a ";
 	 
 	      PreparedStatement pstm = conn.prepareStatement(sql);
 	 
@@ -67,13 +67,13 @@ public class DBUtils {
 	      List<Product> list = new ArrayList<Product>();
 	      while (rs.next()) {
 	          int id = rs.getInt("id");
-	          String productName = rs.getString("product_name");
-	          int productQuantity = rs.getInt("product_quantity");
+	          String name = rs.getString("name");
+	          int quantity = rs.getInt("quantity");
 	          float price = rs.getFloat("price");
 	          Product product = new Product();
-	          product.setID(id);
-	          product.setProductName(productName);
-	          product.setProductQuantity(productQuantity);
+	          product.setId(id);
+	          product.setName(name);
+	          product.setQuantity(quantity);
 	          product.setPrice(price);
 	          list.add(product);
 	      }
@@ -81,7 +81,7 @@ public class DBUtils {
 	  }
 	  
 	  public static Product findProduct(Connection conn, int id) throws SQLException {
-	      String sql = "Select a.id, a.product_name, a.product_quantity, a.price from inventory a where a.id=?";
+	      String sql = "Select a.id, a.name, a.quantity, a.price from inventory a where a.id=?";
 	 
 	      PreparedStatement pstm = conn.prepareStatement(sql);
 	      pstm.setInt(1, id);
@@ -89,35 +89,35 @@ public class DBUtils {
 	      ResultSet rs = pstm.executeQuery();
 	 
 	      while (rs.next()) {
-	          String productName = rs.getString("product_name");
-	          int productQuantity = rs.getInt("product_quantity");
+	          String name = rs.getString("name");
+	          int quantity = rs.getInt("quantity");
 	          float price = rs.getFloat("price");
-	          Product product = new Product(id, productName, productQuantity, price);
+	          Product product = new Product(id, name, quantity, price);
 	          return product;
 	      }
 	      return null;
 	  }
 	 
 	  public static void updateProduct(Connection conn, Product product) throws SQLException {
-	      String sql = "Update Product set product_name =?, product_quantity =?, price=? where id=? ";
+	      String sql = "Update inventory set name =?, quantity =?, price=? where id=? ";
 	 
 	      PreparedStatement pstm = conn.prepareStatement(sql);
 	 
-	      pstm.setString(1, product.getProductName());
-	      pstm.setInt(2, product.getProductQuantity());
+	      pstm.setString(1, product.getName());
+	      pstm.setInt(2, product.getQuantity());
 	      pstm.setFloat(3, product.getPrice());
-	      pstm.setInt(4, product.getID());
+	      pstm.setInt(4, product.getId());
 	      pstm.executeUpdate();
 	  }
 	 
 	  public static void insertProduct(Connection conn, Product product) throws SQLException {
-	      String sql = "Insert into Product(id, product_name, product_quantity, price) values (?,?,?,?)";
+	      String sql = "Insert into inventory(id, name, quantity, price) values (?,?,?,?)";
 	 
 	      PreparedStatement pstm = conn.prepareStatement(sql);
 	 
-	      pstm.setInt(1, product.getID());
-	      pstm.setString(2, product.getProductName());
-	      pstm.setInt(3, product.getProductQuantity());
+	      pstm.setInt(1, product.getId());
+	      pstm.setString(2, product.getName());
+	      pstm.setInt(3, product.getQuantity());
 	      pstm.setFloat(4, product.getPrice());
 	 
 	      pstm.executeUpdate();

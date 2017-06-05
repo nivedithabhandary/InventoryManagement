@@ -1,9 +1,8 @@
 package com.im.webapp.servlet;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,39 +15,47 @@ import com.im.webapp.beans.Product;
 import com.im.webapp.utils.DBUtils;
 import com.im.webapp.utils.UserUtils;
 
-@WebServlet(urlPatterns = { "/adminDashboard" })
-public class AdminDashboardServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/deleteProduct" })
+public class DeleteProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AdminDashboardServlet() {
+
+    public DeleteProductServlet() {
         super();
     }
-    
-    @Override
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = UserUtils.getStoredConnection(request);
         
-        String errorString = null;
-        List<Product> list = null;
+        String idStr = (String) request.getParameter("id");
+        int id = 0;
         try {
-            list = DBUtils.queryInventory(conn);
+            id = Integer.parseInt(idStr);
+        } catch (Exception e) {
+        }
+ 
+        String errorString = null;
+ 
+        try {
+            DBUtils.deleteProduct(conn, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-   
-        // Store info in request attribute, before forward to views
-        request.setAttribute("errorString", errorString);
-        request.setAttribute("productList", list);
          
-        RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/adminDashboard.jsp");
-        dispatcher.forward(request, response);
+        if (errorString != null) {
+            request.setAttribute("errorString", errorString);
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/views/adminDashboard.jsp");
+            dispatcher.forward(request, response);
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/adminDashboard");
+        }
 	}
 
-    @Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+
 	}
 
 }
