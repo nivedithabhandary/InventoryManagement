@@ -10,7 +10,9 @@
  </head>
  <body>
  
-    <h3>Product List</h3>
+    <h3>Admin Dashboard</h3>
+    
+    <h5>Product List</h5>
  
     <p style="color: red;">${errorString}</p>
  
